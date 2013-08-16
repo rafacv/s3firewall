@@ -17,18 +17,18 @@ Optional access control are enforced if the following variables are set:
 You can import s3firewall into your code:
 
 ```python
-    from gevent import wsgi
-    from s3firewall import app
+from gevent import wsgi
+from s3firewall import app
 
-    wsgi.WSGIServer(('', 8080), app).serve_forever()
+wsgi.WSGIServer(('', 8080), app).serve_forever()
 ```
 
 Or invoke it directly from the command line with a capable webserver:
 
 ```bash
-    $ export AWS_ACCESS_KEY_ID='abcd1234' AWS_SECRET_ACCESS_KEY='1234abcd' AWS_BUCKET_NAME='mywebsite'
-    $ export BASIC_AUTH_USERNAME='username' BASIC_AUTH_PASSWORD='mypassword'
-    $ gunicorn s3firewall:app -w 3
+$ export AWS_ACCESS_KEY_ID='abcd1234' AWS_SECRET_ACCESS_KEY='1234abcd' AWS_BUCKET_NAME='mywebsite'
+$ export BASIC_AUTH_USERNAME='username' BASIC_AUTH_PASSWORD='mypassword'
+$ gunicorn s3firewall:app -w 3
 ```
 
 ## Copyright
