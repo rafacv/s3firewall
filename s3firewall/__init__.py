@@ -44,6 +44,8 @@ def get_file(path):
 
 def app(environ, start_response):
     headers = []
+    
+    content_encoding = None
 
     if authenticated(environ):
         if not os.path.splitext(environ['PATH_INFO'])[1]:
@@ -54,6 +56,7 @@ def app(environ, start_response):
         file_ = get_file(path)
         if file_:
             content_type = file_.content_type
+            content_encoding = file_.content_encoding
             content_length = file_.size
             status = '200 OK'
             content = file_.get_contents_as_string()
@@ -71,5 +74,8 @@ def app(environ, start_response):
 
     headers.append(('Content-Type', content_type))
     headers.append(('Content-Length', content_length))
+    if content_encoding:
+        headers.append(('Content-Encoding', content_encoding))
+
     start_response(status, headers)
     return [content]
